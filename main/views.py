@@ -1,16 +1,28 @@
-from django.shortcuts import render
-from cloudinary.uploader import upload
-from cloudinary.exceptions import Error
+from django.contrib import admin
+from django.utils.html import format_html
+from .models import LandingAsset
 
-def home(request):
-    image_url = None
 
-    if request.method == "POST" and request.FILES.get("image"):
-        file = request.FILES["image"]
-        try:
-            result = upload(file)
-            image_url = result.get("secure_url")
-        except Error as e:
-            print("Cloudinary error:", e)
+@admin.register(LandingAsset)
+class LandingAssetAdmin(admin.ModelAdmin):
+    list_display = ("title", "thumbnail", "created_at")
+    readonly_fields = ("preview",)
 
-    return render(request, "main/index.html", {"image_url": image_url})
+    def thumbnail(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" width="80" style="border-radius:5px;" />',
+                obj.image.url
+            )
+        return "(No image)"
+    thumbnail.short_description = "Image"
+
+    def preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" width="300" style="border-radius:10px;" />',
+                obj.image.url
+            )
+        return "No image uploaded"
+
+
