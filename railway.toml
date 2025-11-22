@@ -1,0 +1,10 @@
+[build]
+dockerfile = "Dockerfile"
+
+[deploy]
+restart_policy = "on_failure"
+migrations = true
+
+[env]
+DJANGO_SETTINGS_MODULE = "kinokaf_site.settings"
+PYTHONUNBUFFERED = "1"
