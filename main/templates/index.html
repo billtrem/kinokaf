@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kinokaf</title>
+</head>
+<body>
+
+    <h1>CInema, Cafe, Bar, Loan Library </h1>
+
+    {% if asset %}
+        <h2>{{ asset.title }}</h2>
+        <p>{{ asset.description }}</p>
+
+        {% if asset.image %}
+            <img src="{{ asset.image.url }}" width="400" alt="Uploaded image">
+        {% endif %}
+    {% else %}
+        <p>No content uploaded yet.</p>
+    {% endif %}
+
+</body>
+</html>
