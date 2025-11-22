@@ -1,25 +1,73 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% load static %}
-    <title>Kinokaf</title>
-    <link rel="stylesheet" href="{% static 'main/style.css' %}">
-</head>
-<body>
+{% extends "main/base.html" %}
+{% block title %}Kinokaf{% endblock %}
 
-<h1>Kinokaf</h1>
-<h2>Cinema, cafe & bar, loan library </h2>
+{% block content %}
+
+<h1>Welcome to Kinokaf</h1>
+<h2>Cinema · Café & Bar · Loan Library · Gigs</h2>
 
 {% if asset %}
-    <h2>{{ asset.title }}</h2>
-    <p>{{ asset.description }}</p>
-
-    {% if asset.image %}
-        <img src="{{ asset.image.url }}" width="400" alt="Uploaded image">
-    {% endif %}
-{% else %}
-    <p>No content uploaded yet.</p>
+    <img src="{{ asset.image.url }}" class="hero-img" alt="Landing image">
 {% endif %}
 
-</body>
-</html>
+<section>
+    <h2>About Kinokaf</h2>
+    <p>
+        Kinokaf is a pop-up cinema and cultural space created by filmmaker
+        <strong>Will Tremlett</strong> and artist <strong>Nadia Gillard</strong>.
+        Together they combine years of community cinema programming, creative practice,
+        and warm hospitality to build a place where film, conversation, coffee, and culture meet.
+    </p>
+
+    <p>
+        The name <strong>“Kino”</strong> is a widely used European term for independent or 
+        arthouse cinemas — small, characterful places dedicated to storytelling, ideas, 
+        and gathering. <strong>“Kaf”</strong> nods to café-bar culture: relaxed, social, 
+        welcoming, and woven into daily life.
+    </p>
+
+    <p>
+        Kinokaf blends these two worlds: an intimate arthouse-style screening experience
+        with the atmosphere of a neighbourhood café-bar. As a travelling pop-up,
+        we bring film, books, music, and community vibes to towns, villages, and
+        unexpected spaces — wherever the story needs to go.
+    </p>
+</section>
+
+<section>
+    <h2>Cinema</h2>
+    <p>
+        We screen independent films, world cinema, documentaries, cult favourites,
+        and new voices from Wales and beyond — all curated with care.  
+        Expect pop-up screenings, filmmaker talks, themed nights, and small, warm, atmospheric events.
+    </p>
+</section>
+
+<section>
+    <h2>Café & Bar</h2>
+    <p>
+        Our café-bar offers excellent coffee, homemade cakes, craft beers, natural wines, 
+        and simple, comforting food.  
+        A place to meet friends, chat after a film, or simply spend time in a space that feels good.
+    </p>
+</section>
+
+<section>
+    <h2>Loan Library</h2>
+    <p>
+        Our growing collection of books spans film, art, radical politics, poetry, fiction,
+        culture, and brilliant oddities.  
+        Borrow something, swap something, or settle in with a warm drink and a new story.
+    </p>
+</section>
+
+<section>
+    <h2>Gigs & Live Events</h2>
+    <p>
+        Kinokaf also hosts small gigs, spoken word nights, workshops, open mic evenings, 
+        and creative gatherings.  
+        A place for artists, musicians, and the local community to share their work up close.
+    </p>
+</section>
+
+{% endblock %}
