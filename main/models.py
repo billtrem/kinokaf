@@ -1,9 +1,13 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class LandingAsset(models.Model):
     title = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to="landing/")
+
+    # ⬇️ This forces Cloudinary upload (fixes your problem)
+    image = CloudinaryField("image", blank=True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

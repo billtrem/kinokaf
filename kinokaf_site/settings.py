@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     # Your app
     "main",
 
-    # Cloudinary (from Finnmac config) :contentReference[oaicite:1]{index=1}
+    # Cloudinary
     "cloudinary",
     "cloudinary_storage",
 ]
@@ -59,7 +59,7 @@ INSTALLED_APPS = [
 # ---------------------------------------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",   # Railway static handler
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -71,8 +71,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = "kinokaf_site.urls"
 
 # ---------------------------------------------------------
-# TEMPLATE CONFIG
-# Matches Finnmac's structure: /main/templates/ :contentReference[oaicite:2]{index=2}
+# TEMPLATES
 # ---------------------------------------------------------
 TEMPLATES = [
     {
@@ -92,8 +91,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "kinokaf_site.wsgi.application"
 
 # ---------------------------------------------------------
-# DATABASE — Railway auto-detect or fallback to SQLite
-# Same logic as Finnmac’s config :contentReference[oaicite:3]{index=3}
+# DATABASE
 # ---------------------------------------------------------
 DATABASES = {
     "default": dj_database_url.config(
@@ -122,7 +120,7 @@ USE_I18N = True
 USE_TZ = True
 
 # ---------------------------------------------------------
-# STATIC FILES — Whitenoise (production-safe)
+# STATIC FILES — Whitenoise
 # ---------------------------------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -131,23 +129,24 @@ STATICFILES_DIRS = [BASE_DIR / "main" / "static"]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ---------------------------------------------------------
-# MEDIA — Cloudinary (same as Finnmac) :contentReference[oaicite:4]{index=4}
+# MEDIA STORAGE — Cloudinary (Smoovie-style)
 # ---------------------------------------------------------
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
     "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
     "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+    "SECURE": True,
 }
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+# ❗ IMPORTANT — REMOVE local media settings
+# (Cloudinary replaces MEDIA_ROOT and MEDIA_URL)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ---------------------------------------------------------
-# SECURITY HEADERS (copied from Finnmac)
+# SECURITY HEADERS
 # ---------------------------------------------------------
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
