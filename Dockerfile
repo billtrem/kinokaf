@@ -39,13 +39,15 @@ COPY . /app/
 RUN python manage.py collectstatic --noinput || true
 
 # -----------------------------
-# Entrypoint: migrate + start Gunicorn
+# Entrypoint: migrate + ensure superuser + start Gunicorn
 # -----------------------------
 CMD bash -c "\
     echo '🚀 Running migrations...' && \
     python manage.py migrate --noinput && \
     echo '📦 Collecting static files...' && \
     python manage.py collectstatic --noinput && \
+    echo '👑 Ensuring superuser...' && \
+    python manage.py ensure_superuser && \
     echo '🔥 Starting Gunicorn...' && \
     gunicorn kinokaf_site.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 4 \
 "
